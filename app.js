@@ -41,7 +41,32 @@ app.use(
   })
 );
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+const swaggerOptions = {
+  customCss: `
+  .swagger-ui .topbar { display: none }
+`,
+  customSiteTitle: "My API Documentation",
+  customfavIcon: "/dist/favicon-32x32.png",
+  swaggerOptions: {
+    urls: [
+      {
+        url: `/api-docs/swagger.json`,
+        name: "My API",
+      },
+    ],
+  },
+};
+
+app.get("/api-docs/swagger.json", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  res.send(swaggerSpec);
+});
+
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(null, swaggerOptions)
+);
 
 app.get('/api/v1/health-check', async (req, res) => {
     const healthReport = {
