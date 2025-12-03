@@ -4,9 +4,17 @@ import cors from 'cors';
 import { testR2Connection } from './src/config/cloudflareR2.js';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './src/swagger/swagger.config.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 const app = express()
 const PORT = envVariables.PORT || 8000
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 /**
  *! We can use origin: * if frontend doesn't have these below two options
@@ -46,7 +54,7 @@ const swaggerOptions = {
   .swagger-ui .topbar { display: none }
 `,
   customSiteTitle: "My API Documentation",
-  customfavIcon: "/api-docs/favicon-32x32.png",
+  customfavIcon: "/favicon-32x32.png",
   swaggerOptions: {
     urls: [
       {
