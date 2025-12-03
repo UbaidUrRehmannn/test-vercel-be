@@ -13,7 +13,6 @@ const __dirname = path.dirname(__filename);
 
 const app = express()
 const PORT = envVariables.PORT || 8000
-app.use(express.static(path.join(__dirname, 'public')));
 
 
 /**
@@ -50,30 +49,18 @@ app.use(
 );
 
 const swaggerOptions = {
-  customCss: `
-  .swagger-ui .topbar { display: none }
-`,
-  customSiteTitle: "My API Documentation",
-  customfavIcon: "/favicon-32x32.png",
-  swaggerOptions: {
-    urls: [
-      {
-        url: `/api-docs/swagger.json`,
-        name: "My API",
-      },
+    customCssUrl: "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui.min.css",
+    customJs: [
+        "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui-bundle.min.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui-standalone-preset.min.js"
     ],
-  },
 };
 
-app.get("/api-docs/swagger.json", (req, res) => {
-  res.setHeader("Content-Type", "application/json");
-  res.send(swaggerSpec);
-});
 
 app.use(
   "/api-docs",
   swaggerUi.serve,
-  swaggerUi.setup(null, swaggerOptions)
+  swaggerUi.setup(swaggerSpec, swaggerOptions)
 );
 
 app.get('/api/v1/health-check', async (req, res) => {
