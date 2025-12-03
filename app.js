@@ -1,10 +1,15 @@
-const express = require('express');
+import express from 'express'
 
 const app = express()
 const PORT = 8000
 
 app.get('/', (req, res) => {
-  res.send('Hello World')
+  res.status(200).json({
+    data: null,
+    message: 'Server is up and running 🚀 ',
+    route: '/',
+    description: 'This is the root route of the server'
+  })
 })
 
 app.get('/about', (req, res) => {
