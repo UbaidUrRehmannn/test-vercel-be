@@ -46,7 +46,7 @@ const swaggerOptions = {
   .swagger-ui .topbar { display: none }
 `,
   customSiteTitle: "My API Documentation",
-  customfavIcon: "/dist/favicon-32x32.png",
+  customfavIcon: "/api-docs/favicon-32x32.png",
   swaggerOptions: {
     urls: [
       {

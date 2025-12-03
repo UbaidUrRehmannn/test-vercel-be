@@ -7,7 +7,7 @@ import { getAbsoluteFSPath } from "swagger-ui-dist";
 // Get the absolute path to the swagger-ui-dist directory
 const source = getAbsoluteFSPath();
 
-const destination = "dist";
+const destination = "public";
 
 // copy source folder to destination
 fs.copy(source, destination, function (err) {
