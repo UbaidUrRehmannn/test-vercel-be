@@ -8,8 +8,20 @@
     ],
     "routes": [
         {
-            "src": "/api-docs/(.*\\.(?:css|js|png|ico|html|svg))$",
-            "dest": "/public/$1"
+            "src": "/api-docs/swagger-ui.css",
+            "dest": "/public/swagger-ui.css"
+        },
+        {
+            "src": "/api-docs/swagger-ui-bundle.js",
+            "dest": "/public/swagger-ui-bundle.js"
+        },
+        {
+            "src": "/api-docs/swagger-ui-standalone-preset.js",
+            "dest": "/public/swagger-ui-standalone-preset.js"
+        },
+        {
+            "src": "/api-docs/favicon-32x32.png",
+            "dest": "/public/favicon-32x32.png"
         },
         {
             "src": "/(.*)",
