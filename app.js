@@ -1,4 +1,5 @@
 import express from 'express'
+import { envVariables } from './src/constant.js'
 
 const app = express()
 const PORT = 8000
@@ -8,7 +9,8 @@ app.get('/', (req, res) => {
     data: null,
     message: 'Server is up and running 🚀 ',
     route: '/',
-    description: 'This is the root route of the server'
+    description: 'This is the root route of the server',
+    envoirnment: envVariables.ENVIRONMENT || "hehe"
   })
 })
 
