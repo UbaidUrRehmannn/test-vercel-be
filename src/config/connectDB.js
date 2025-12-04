@@ -1,9 +1,11 @@
 import { Sequelize } from 'sequelize'; // Import Sequelize to handle DB connections
+import pg from 'pg';
 import { envVariables } from '../constant.js'; // Import environment variables (DATABASE_URL)
 
 // Create a Sequelize instance for PostgreSQL connection
 const sequelize = new Sequelize(envVariables.DATABASE_URL, {
   dialect: 'postgres',
+  dialectModule: pg,
   logging: false, // Disable logging
 });
 
