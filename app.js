@@ -4,42 +4,9 @@ import cors from 'cors';
 import { testR2Connection } from './src/config/cloudflareR2.js';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './src/swagger/swagger.config.js';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 
 const app = express()
 const PORT = envVariables.PORT || 8000
-
-
-/**
- *! We can use origin: * if frontend doesn't have these below two options
- *! use withCredentials: true in case of axios
- *! use credentials: 'include' in case of fetch
- *! to allow backend to set cookies in frontend we have to use these options that's why we have to
- *! mention the url in origin if backend has to set httponly: true cookie in frontend.
- */
-// app.use(
-//     cors({
-//         origin: function (origin, callback) {
-//             // Allow requests with no origin (like mobile apps, curl, etc.)
-//             if (!origin) return callback(null, true);
-//             if (
-//                 envVariables.FRONTEND_URLS &&
-//                 envVariables.FRONTEND_URLS.includes(origin)
-//             ) {
-//                 return callback(null, true);
-//             }
-//             const msg =
-//                 'The CORS policy for this site does not allow access from the specified Origin.';
-//             return callback(new Error(msg), false);
-//         },
-//         credentials: true,
-//     }),
-// );
 
 app.use(
   cors({
@@ -48,7 +15,8 @@ app.use(
   })
 );
 
-const swaggerOptions = {
+// Swagger UI options (only UI customization here)
+const swaggerUiOptions = {
     customCssUrl: "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui.min.css",
     customJs: [
         "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui-bundle.min.js",
@@ -56,11 +24,11 @@ const swaggerOptions = {
     ],
 };
 
-
+// Single Swagger setup - spec comes from swagger.config.js
 app.use(
   "/api-docs",
   swaggerUi.serve,
-  swaggerUi.setup(swaggerSpec, swaggerOptions)
+  swaggerUi.setup(swaggerSpec, swaggerUiOptions)
 );
 
 app.get('/api/v1/health-check', async (req, res) => {

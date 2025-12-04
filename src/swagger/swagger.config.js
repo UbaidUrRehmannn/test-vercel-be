@@ -1,6 +1,11 @@
 // swagger.config.js
 import swaggerJSDoc from 'swagger-jsdoc';
 import { envVariables } from '../constant.js';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const swaggerDefinition = {
     openapi: '3.0.0',
@@ -151,8 +156,6 @@ const swaggerDefinition = {
         }
     },
     security: [{ bearerAuth: [] }],
-
-    // 👇 Add this to control order of tags in Swagger UI
     tags: [
         {
             name: 'Health',
@@ -186,26 +189,19 @@ const swaggerDefinition = {
             name: 'Audit Logs',
             description: 'Audit log management and activity tracking',
         },
-        // you can add more here in the order you want
     ],
 };
 
+// Use absolute paths that work in both local and Vercel
 const swaggerOptions = {
     swaggerDefinition,
     apis: [
-        './src/routes/*.js', 
-        './src/controllers/*.js', 
-        './src/swagger/*.js',
-        './src/swagger/user.swagger.js',
-        './src/swagger/userManagement.swagger.js',
-        './src/swagger/health.swagger.js',
-        './src/swagger/client.swagger.js',
-        './src/swagger/invoice.swagger.js',
-        './src/swagger/quotation.swagger.js',
-        './src/swagger/audit.swagger.js',
-        './src/swagger/department.swagger.js',
-        './src/swagger/socket.swagger.js',
-        './src/swagger/file-upload.swagger.js'
+        join(__dirname, '../routes/**/*.js'),
+        join(__dirname, './**/*.swagger.js'),
+        // OR if the above doesn't work on Vercel, use explicit paths:
+        // join(__dirname, '../routes/fileUpload.routes.js'),
+        // join(__dirname, './file-upload.swagger.js'),
+        // join(__dirname, './health.swagger.js'),
     ],
 };
 
