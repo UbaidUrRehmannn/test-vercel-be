@@ -4,6 +4,7 @@ import cors from 'cors';
 import { testR2Connection } from './src/config/cloudflareR2.js';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './src/swagger/swagger.config.js';
+import { connectDB, sequelize } from './src/config/connectDB.js';
 
 const app = express()
 const PORT = envVariables.PORT || 8000
@@ -14,7 +15,7 @@ app.use(
     credentials: false,
   })
 );
-
+connectDB();
 // Swagger UI options (only UI customization here)
 const swaggerUiOptions = {
     customCssUrl: "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.17.14/swagger-ui.min.css",

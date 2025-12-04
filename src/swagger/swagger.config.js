@@ -214,9 +214,9 @@ const swaggerOptions = {
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
 // Debug logging
-console.log('🔍 Swagger config loaded');
-console.log('📂 Current directory:', __dirname);
-console.log('📝 Number of paths found:', Object.keys(swaggerSpec.paths || {}).length);
-console.log('🛣️  Paths:', Object.keys(swaggerSpec.paths || {}));
+// console.log('🔍 Swagger config loaded');
+// console.log('📂 Current directory:', __dirname);
+// console.log('📝 Number of paths found:', Object.keys(swaggerSpec.paths || {}).length);
+// console.log('🛣️  Paths:', Object.keys(swaggerSpec.paths || {}));
 
 export default swaggerSpec;
