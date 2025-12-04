@@ -1,4 +1,4 @@
-// swagger.config.js
+// src/swagger/swagger.config.js
 import swaggerJSDoc from 'swagger-jsdoc';
 import { envVariables } from '../constant.js';
 import { fileURLToPath } from 'url';
@@ -192,19 +192,31 @@ const swaggerDefinition = {
     ],
 };
 
-// Use absolute paths that work in both local and Vercel
+// __dirname is: /src/swagger/
+// We need to go up to /src/ then into routes and swagger folders
+
 const swaggerOptions = {
     swaggerDefinition,
     apis: [
-        join(__dirname, '../routes/**/*.js'),
-        join(__dirname, './**/*.swagger.js'),
-        // OR if the above doesn't work on Vercel, use explicit paths:
-        // join(__dirname, '../routes/fileUpload.routes.js'),
-        // join(__dirname, './file-upload.swagger.js'),
-        // join(__dirname, './health.swagger.js'),
+        // Routes folder (one level up, then into routes)
+        join(__dirname, '../routes/fileUpload.routes.js'),
+        // You can add more route files here:
+        // join(__dirname, '../routes/auth.routes.js'),
+        // join(__dirname, '../routes/client.routes.js'),
+        // etc.
+        
+        // Swagger documentation files (same folder)
+        join(__dirname, './file-upload.swagger.js'),
+        join(__dirname, './health.swagger.js'),
     ],
 };
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
+
+// Debug logging
+console.log('🔍 Swagger config loaded');
+console.log('📂 Current directory:', __dirname);
+console.log('📝 Number of paths found:', Object.keys(swaggerSpec.paths || {}).length);
+console.log('🛣️  Paths:', Object.keys(swaggerSpec.paths || {}));
 
 export default swaggerSpec;
