@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -r dotenv/config --experimental-json-modules app.js",
-    "build": "node copy-swagger.js"
+    "start": "nodemon -r dotenv/config --experimental-json-modules app.js"
   },
   "keywords": [],
   "author": "",
